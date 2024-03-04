@@ -8,29 +8,34 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    let vm = HomeViewViewModel()
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
                     HeaderView
                     
+                    ProductListView(productList: vm.productList1)
+                    
                     Slider
                     
-                    BannerView(background: .teal)
+                    BannerView(imageURL: "banner-01")
 
-                    ProductList
+                    
                     
                     Slider
                     
-                    ProductList
+                    //ProductList
                     
-                    BannerView(background: .mint)
+                    BannerView(imageURL: "banner-02")
                     
-                    ProductList
+                    ProductListView(productList: vm.productList1)
                     
-                    BannerView(background: .indigo)
+                    BannerView(imageURL: "banner-03")
                     
-                    ProductList
+                    //ProductList
                     
                 }
                 .ignoresSafeArea()
@@ -47,20 +52,20 @@ struct HomeView: View {
 extension HomeView {
     
     private var HeaderView: some View {
-        HStack {
-            Rectangle()
+        HStack(alignment: .center) {
+            Image("icon-menu")
                 .frame(width: 50, height: 50)
             
-            Rectangle()
+            Image("logo-bookstore")
                 .frame(width: 150, height: 50)
             
-            Rectangle()
+            Image("icon-search")
                 .frame(width: 50, height: 50)
             
-            Rectangle()
+            Image("icon-user")
                 .frame(width: 50, height: 50)
             
-            Rectangle()
+            Image("icon-shopping-bag")
                 .frame(width: 50, height: 50)
         }
     }
@@ -107,84 +112,16 @@ extension HomeView {
         }
     }
     
-    private var ProductList: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(0..<16) {_ in
-                    NavigationLink(destination: ProductDetailView()) {
-                        VStack {
-                            Rectangle()
-                                .frame(width: (UIScreen.main.bounds.width / 2 - 8), height: 240)
-                                .foregroundStyle(.black)
-                            
-                            VStack {
-                                Text("Hangzatos könyv címe")
-                                    .font(.subheadline)
-                                    .bold()
-                                Text("Hangzatos könyv alcíme")
-                                    .font(.caption)
-                                Text("Író neve")
-                                    .font(.caption)
-                                
-                                HStack {
-                                    Spacer()
-                                    VStack {
-                                        Text("Eredeti ár:")
-                                        Text("5 990 Ft")
-                                    }
-                                    Spacer()
-                                    VStack {
-                                        Text("Online ár:")
-                                        Text("4 990 Ft")
-                                    }
-                                    Spacer()
-                                }
-                                .padding(.top, 8)
-                                .font(.caption)
-                                
-                                HStack {
-                                    Spacer()
-                                    Button {
-                                        
-                                    } label: {
-                                        Text("Kedvencem")
-                                            .foregroundStyle(.black)
-                                            .font(.caption)
-                                            
-                                    }
-                                    Spacer()
-                                    Button {
-                                        
-                                    } label: {
-                                        Text("Kosárba")
-                                            .foregroundStyle(.orange)
-                                            .font(.caption)
-                                            .bold()
-                                            
-                                    }
-                                    Spacer()
-                                }
-                                .padding(.top, 5)
-                                
-                                
-
-                            }
-                            
-                        }
-                        .padding(2)
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 struct BannerView: View {
-    let background: Color
+    let imageURL: String
     
     var body: some View {
-        Rectangle()
-            .frame(width: UIScreen.main.bounds.size.width, height: 400)
-            .foregroundStyle(background)
+        Image(imageURL)
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.main.bounds.size.width)
     }
 }
